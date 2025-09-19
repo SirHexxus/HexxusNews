@@ -1,5 +1,5 @@
 // Placeholder for your n8n API URL
-const N8N_API_URL = "https://automation.sirhexx.com/webhook/0cd8e4b1-4ce1-4e57-adbf-d49b50dd44c0"; 
+const N8N_API_URL = "https://automation.sirhexx.com/webhook/0cd8e4b1-4ce1-4e57-adbf-d49b50dd44ci0";
 
 // Local Storage Keys
 const THEME_KEY = 'theme';
@@ -9,11 +9,11 @@ const newsContainer = document.querySelector('.news-container');
 const themeToggle = document.getElementById('checkbox');
 
 // Function to set the theme based on local storage
-function setTheme() {
+const setTheme = () => {
     const savedTheme = localStorage.getItem(THEME_KEY) || 'dark';
     document.body.setAttribute('data-theme', savedTheme);
     themeToggle.checked = savedTheme === 'light';
-}
+};
 
 // Event listener for the theme toggle
 themeToggle.addEventListener('change', () => {
@@ -23,7 +23,7 @@ themeToggle.addEventListener('change', () => {
 });
 
 // Function to render news cards
-function renderNews(articles) {
+const renderNews = (articles) => {
     if (!articles || articles.length === 0) {
         newsContainer.innerHTML = '<p>No news articles found.</p>';
         return;
@@ -48,10 +48,10 @@ function renderNews(articles) {
         `;
         newsContainer.appendChild(card);
     });
-}
+};
 
 // Function to fetch and cache data
-async function fetchAndCacheNews() {
+const fetchAndCacheNews = async () => {
     const cachedData = JSON.parse(localStorage.getItem(CACHE_KEY));
     const now = new Date().getTime();
 
@@ -73,6 +73,13 @@ async function fetchAndCacheNews() {
 
         // Assuming the n8n workflow returns an array of objects
         if (Array.isArray(data)) {
+            // Sort articles from most to least recent
+            data.sort((a, b) => {
+                const dateA = new Date(a.PubDate);
+                const dateB = new Date(b.PubDate);
+                return dateB - dateA;
+            });
+
             const freshData = {
                 articles: data,
                 timestamp: new Date().getTime()
@@ -87,7 +94,7 @@ async function fetchAndCacheNews() {
         console.error("Failed to fetch news:", error);
         newsContainer.innerHTML = '<p>Failed to load news. Please try again later.</p>';
     }
-}
+};
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
