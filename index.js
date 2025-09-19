@@ -1,5 +1,5 @@
 // Placeholder for your n8n API URL
-const N8N_API_URL = "https://automation.sirhexx.com/webhook/0cd8e4b1-4ce1-4e57-adbf-d49b50dd44ci0";
+const N8N_API_URL = "https://automation.sirhexx.com/webhook/0cd8e4b1-4ce1-4e57-adbf-d49b50dd44c0";
 
 // Local Storage Keys
 const THEME_KEY = 'theme';
